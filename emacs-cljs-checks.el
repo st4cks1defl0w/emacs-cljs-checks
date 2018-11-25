@@ -156,18 +156,17 @@
 
 ;; ;;;;END HELM-AG.EL;;;;
 
-
 (defun emacs-cljs-checks-usages (&optional n)
   (interactive "P")
-  (let* ((starting-point (point))
-         (yanked-sexp (evil-cp-yank-sexp 1)))
+  (let* ((starting-point (point)))
+    (evil-cp-backward-symbol-begin)
+    (setq yanked-sexp (evil-cp-yank-sexp 1))
     (evil-goto-first-line)
     (evil-forward-WORD-begin)
     (setq yanked-ns (string-remove-suffix ".core"
                                           (string-remove-prefix "transportal." (evil-cp-yank-sexp 1))))
     (goto-char starting-point)
-    (insert-string
-     (helm-do-ag (projectile-project-root) nil (concat "[^\.]" yanked-ns "/" yanked-sexp " ")))))
+    (helm-do-ag (projectile-project-root) nil (concat "[^\.]" yanked-ns "/" yanked-sexp " "))))
 
   (dolist (m '(clojure-mode clojurescript-mode))
     (spacemacs/set-leader-keys-for-major-mode m
