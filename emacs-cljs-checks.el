@@ -40,7 +40,7 @@
                                                      flattened-destructured-arguments) " ") ")\n")))
 
 
-  (defun chase-args (&optional n)
+  (defun emacs-cljs-checks-args (&optional n)
     (interactive "P")
     (setq-local insert-at (point))
     (sp-beginning-of-sexp)
@@ -52,7 +52,7 @@
       (insert-string (str-vector->labeled-args
                       args sexp-type))))
 
-(defun chase-print-symbol (&optional n)
+(defun emacs-cljs-checks-print-symbol (&optional n)
   (interactive "P")
   (let* ((yanked (evil-paste-before 0)))
   (insert-string (concat "\n(println \">>> "
@@ -157,7 +157,7 @@
 ;; ;;;;END HELM-AG.EL;;;;
 
 
-(defun chase-usages (&optional n)
+(defun emacs-cljs-checks-usages (&optional n)
   (interactive "P")
   (let* ((starting-point (point))
          (yanked-sexp (evil-cp-yank-sexp 1)))
@@ -180,8 +180,7 @@
 
   (dolist (m '(clojure-mode clojurescript-mode))
     (spacemacs/set-leader-keys-for-major-mode m
-      "cu" 'chase-usages
-      "ca" 'chase-args
-      "cs" 'chase-print-symbol
+      "cu" 'emacs-cljs-checks-usages
+      "ca" 'emacs-cljs-checks-args
+      "cs" 'emacs-cljs-checks-print-symbol
       "gk" 'cider-find-keyword))
-
