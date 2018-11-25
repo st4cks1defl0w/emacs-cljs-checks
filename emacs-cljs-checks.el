@@ -1,6 +1,6 @@
-  (setq-default vector-pattern "\\[[^.]*?\\]" )
-  (setq-default map-destructuring-pattern "{:keys \\[[^.]*?}")
-  (setq-default fn-pattern "(.*)*")
+  (setq vector-pattern "\\[[^.]*?\\]" )
+  (setq map-destructuring-pattern "{:keys \\[[^.]*?}")
+  (setq fn-pattern "(.*)*")
 
   (defun extract-destructured-args (str)
     (setq-local defunced (replace-regexp-in-string fn-pattern ":arg-side-args-emacs" str))
@@ -169,18 +169,8 @@
     (insert-string
      (helm-do-ag (projectile-project-root) nil (concat "[^\.]" yanked-ns "/" yanked-sexp " ")))))
 
-  (dolist (m '(clojure-mode))
-    (spacemacs/set-leader-keys-for-major-mode m
-      "j" 'cider-project-reset
-      "J" 'cider-dev
-      "sj" 'cider-connect-sibling-cljs
-      "sa" 'cider-default-connect
-      "sC" 'cider-replicate-connection
-      "hc" 'clojure-cheatsheet))
-
   (dolist (m '(clojure-mode clojurescript-mode))
     (spacemacs/set-leader-keys-for-major-mode m
       "cu" 'emacs-cljs-checks-usages
       "ca" 'emacs-cljs-checks-args
-      "cs" 'emacs-cljs-checks-print-symbol
-      "gk" 'cider-find-keyword))
+      "cs" 'emacs-cljs-checks-print-symbol))
